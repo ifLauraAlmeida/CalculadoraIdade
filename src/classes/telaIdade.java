@@ -4,6 +4,7 @@
  */
 package classes;
 
+import java.time.LocalDate;
 /**
  *
  * @author Laura
@@ -113,7 +114,8 @@ public class telaIdade extends javax.swing.JFrame {
     private void btnCalcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcActionPerformed
         // TODO add your handling code here:
         int an = Integer.parseInt(txtAN.getValue().toString());
-        int id = 2025 - an;
+        int aa = LocalDate.now().getYear();
+        int id = aa - an;
         lblIdade.setText(Integer.toString(id));
     }//GEN-LAST:event_btnCalcActionPerformed
 

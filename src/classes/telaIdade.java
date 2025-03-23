@@ -29,21 +29,22 @@ public class telaIdade extends javax.swing.JFrame {
 
         jLabel4 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        txtAN = new javax.swing.JSpinner();
         btnCalc = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        lblIdade = new javax.swing.JLabel();
+        lblAno = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        anoN = new javax.swing.JSpinner();
+        mesN = new javax.swing.JSpinner();
+        diaN = new javax.swing.JSpinner();
+        lblMes = new javax.swing.JLabel();
+        lblDia = new javax.swing.JLabel();
 
         jLabel4.setText("jLabel4");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel1.setText("Ano de Nascimento");
-
-        txtAN.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        txtAN.setModel(new javax.swing.SpinnerNumberModel(1500, 1500, 2026, 1));
+        jLabel1.setText("Data de Nascimento");
 
         btnCalc.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnCalc.setText("Calcular");
@@ -56,11 +57,26 @@ public class telaIdade extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setText("Idade:");
 
-        lblIdade.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        lblIdade.setForeground(new java.awt.Color(255, 0, 0));
-        lblIdade.setText("0");
+        lblAno.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblAno.setForeground(new java.awt.Color(255, 0, 0));
+        lblAno.setText("0");
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/589b4da582250818d81e748f (2) (1).png"))); // NOI18N
+
+        anoN.setModel(new javax.swing.SpinnerNumberModel(2000, 1970, 2024, 1));
+
+        mesN.setModel(new javax.swing.SpinnerNumberModel(1, 1, 12, 1));
+
+        diaN.setModel(new javax.swing.SpinnerNumberModel(1, 1, 31, 1));
+        diaN.setToolTipText("");
+
+        lblMes.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblMes.setForeground(new java.awt.Color(255, 0, 0));
+        lblMes.setText("0");
+
+        lblDia.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblDia.setForeground(new java.awt.Color(255, 0, 0));
+        lblDia.setText("0");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -69,43 +85,51 @@ public class telaIdade extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblAno, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblMes, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblDia, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnCalc)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(21, 21, 21)
-                                .addComponent(jLabel1)
+                                .addComponent(anoN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtAN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(39, 39, 39)
-                                .addComponent(jLabel2)
+                                .addComponent(mesN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblIdade, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnCalc)
-                        .addGap(53, 53, 53)))
+                                .addComponent(diaN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(18, 18, 18)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 185, Short.MAX_VALUE)
-                .addGap(28, 28, 28))
+                .addGap(16, 16, 16))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
-                            .addComponent(txtAN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                            .addComponent(anoN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(mesN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(diaN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(26, 26, 26)
                         .addComponent(btnCalc)
-                        .addGap(18, 18, 18)
+                        .addGap(10, 10, 10)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(lblIdade)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel6)))
-                .addContainerGap(31, Short.MAX_VALUE))
+                            .addComponent(lblAno)
+                            .addComponent(lblMes)
+                            .addComponent(lblDia))))
+                .addContainerGap(7, Short.MAX_VALUE))
         );
 
         pack();
@@ -113,10 +137,36 @@ public class telaIdade extends javax.swing.JFrame {
 
     private void btnCalcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcActionPerformed
         // TODO add your handling code here:
-        int an = Integer.parseInt(txtAN.getValue().toString());
-        int aa = LocalDate.now().getYear();
-        int id = aa - an;
-        lblIdade.setText(Integer.toString(id));
+int an = Integer.parseInt(anoN.getValue().toString());
+int mn = Integer.parseInt(mesN.getValue().toString());
+int dn = Integer.parseInt(diaN.getValue().toString());
+
+LocalDate hoje = LocalDate.now();
+int anoAtual = hoje.getYear();
+int mesAtual = hoje.getMonthValue();
+int diaAtual = hoje.getDayOfMonth();
+
+int ano = anoAtual - an;
+int mes = mesAtual - mn;
+int dia = diaAtual - dn;
+
+// Ajuste se o aniversário ainda não ocorreu este ano
+if (dia < 0) {
+        mes--; 
+        // Pegando a quantidade de dias do mês anterior
+        LocalDate mesPassado = hoje.minusMonths(1);
+        int diasNoMesPassado = mesPassado.lengthOfMonth();
+        dia += diasNoMesPassado;
+    }
+
+    if (mes < 0) {
+        ano--;
+        mes += 12;
+    }
+
+lblAno.setText(Integer.toString(ano));
+lblMes.setText(Integer.toString(mes));
+lblDia.setText(Integer.toString(dia));
     }//GEN-LAST:event_btnCalcActionPerformed
 
     /**
@@ -155,12 +205,16 @@ public class telaIdade extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JSpinner anoN;
     private javax.swing.JButton btnCalc;
+    private javax.swing.JSpinner diaN;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel lblIdade;
-    private javax.swing.JSpinner txtAN;
+    private javax.swing.JLabel lblAno;
+    private javax.swing.JLabel lblDia;
+    private javax.swing.JLabel lblMes;
+    private javax.swing.JSpinner mesN;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,6 +5,12 @@
 package com.seuprojeto.classes;
 
 import java.time.LocalDate;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import java.sql.PreparedStatement;
+import java.io.File;
 /**
  *
  * @author Laura
@@ -14,11 +20,61 @@ public class telaIdade extends javax.swing.JFrame {
     /**
      * Creates new form telaIdade
      */
+       private Connection conn;
+
+    // Conectar ao banco de dados SQLite
+   private Connection connect() {
+    if (conn == null) {
+        try {
+            // Registra o driver do SQLite
+            Class.forName("org.sqlite.JDBC");
+
+            // Define o caminho completo do banco de dados
+            String url = "jdbc:sqlite:C:\\Users\\Laura\\Documents\\NetBeansProjects\\calculadoraIdade\\idade.db";
+
+            // Verifica se o diretório existe, caso contrário, cria
+            File databaseFile = new File("C:\\Users\\Laura\\Documents\\NetBeansProjects\\calculadoraIdade");
+            if (!databaseFile.exists()) {
+                databaseFile.mkdirs();  // Cria o diretório, se não existir
+            }
+
+            // Conecta ao banco de dados
+            conn = DriverManager.getConnection(url);
+
+            // Criação da tabela, caso não exista
+            String sql = "CREATE TABLE IF NOT EXISTS pessoas ("
+                    + " id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                    + " nome TEXT, "
+                    + " data_nascimento TEXT, "
+                    + " idade INTEGER);";
+            conn.createStatement().execute(sql);
+
+        } catch (SQLException | ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(this, "Erro ao conectar ao banco de dados: " + e.getMessage());
+        }
+    }
+    return conn;
+}
+
+
+    // Método para salvar dados no banco de dados
+    private void salvarDados(String nome, String dataNascimento, int idade) {
+        String sql = "INSERT INTO pessoas (nome, data_nascimento, idade) VALUES (?, ?, ?)";
+        try (PreparedStatement pstmt = connect().prepareStatement(sql)) {
+            pstmt.setString(1, nome);
+            pstmt.setString(2, dataNascimento);
+            pstmt.setInt(3, idade);
+            pstmt.executeUpdate();
+            JOptionPane.showMessageDialog(this, "Dados salvos com sucesso!");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Erro ao salvar os dados: " + e.getMessage());
+        }
+    }
+
     public telaIdade() {
         initComponents();
-    this.setFocusable(true); // Faz a janela receber o foco primeiro
-    this.requestFocusInWindow(); // Remove o foco do campo de texto
-
+        this.setFocusable(true);
+        this.requestFocusInWindow();
     }
 
     /**
@@ -141,22 +197,19 @@ public class telaIdade extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblMes, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel8)
-                                .addGap(18, 18, 18)
-                                .addComponent(lblDia, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE))
+                                .addComponent(jLabel8))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(161, 161, 161)
-                                        .addComponent(btnCalc))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtFNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addGap(161, 161, 161)
+                                .addComponent(btnCalc))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtFNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(lblDia, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(30, 30, 30)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -174,7 +227,6 @@ public class telaIdade extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(55, 55, 55)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -198,7 +250,7 @@ public class telaIdade extends javax.swing.JFrame {
                             .addComponent(diaN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(27, 27, 27)
                         .addComponent(btnCalc)
-                        .addGap(18, 18, 18)
+                        .addGap(61, 61, 61)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblMes)
@@ -217,9 +269,10 @@ public class telaIdade extends javax.swing.JFrame {
     private void btnCalcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcActionPerformed
         // TODO add your handling code here:
         String nome = txtFNome.getText();  // Captura o nome digitado
-        lblNome.setText(nome + " :");  // Atualiza o label com o nome
-
-        
+        if (nome.isEmpty() || nome.equals("insira seu nome aqui")) {
+            JOptionPane.showMessageDialog(this, "Por favor, insira seu nome.");
+            return;
+        } 
 int an = Integer.parseInt(anoN.getValue().toString());
 int mn = Integer.parseInt(mesN.getValue().toString());
 int dn = Integer.parseInt(diaN.getValue().toString());
@@ -250,6 +303,10 @@ if (dia < 0) {
 lblAno.setText(Integer.toString(ano));
 lblMes.setText(Integer.toString(mes));
 lblDia.setText(Integer.toString(dia));
+
+
+ String dataNascimento = an + "-" + mn + "-" + dn;
+        salvarDados(nome, dataNascimento, ano);
     }//GEN-LAST:event_btnCalcActionPerformed
 
     private void txtFNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFNomeActionPerformed

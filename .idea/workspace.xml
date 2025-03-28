@@ -5,8 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d0fdc1d9-130f-4d6d-8c00-1b4f612e9fd1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/seuprojeto/classes/telaIdade.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/seuprojeto/classes/telaIdade.form" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/seuprojeto/classes/telaIdade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/seuprojeto/classes/telaIdade.java" afterDir="false" />
     </list>
@@ -70,7 +71,7 @@
       <option name="presentableId" value="Default" />
       <updated>1743021649620</updated>
       <workItem from="1743021653138" duration="1202000" />
-      <workItem from="1743101288823" duration="893000" />
+      <workItem from="1743101288823" duration="4944000" />
     </task>
     <servers />
   </component>

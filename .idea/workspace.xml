@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d0fdc1d9-130f-4d6d-8c00-1b4f612e9fd1" name="Changes" comment="">
+    <list default="true" id="d0fdc1d9-130f-4d6d-8c00-1b4f612e9fd1" name="Changes" comment="Adicionando o &quot;visualizar&quot; ou seja, o SELECT no readme.md">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/idade.db" beforeDir="false" afterPath="$PROJECT_DIR$/idade.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/seuprojeto/classes/telaIdade.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/seuprojeto/classes/telaIdade.form" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/seuprojeto/classes/telaIdade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/seuprojeto/classes/telaIdade.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/imagens/netbeanslogo.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,10 +73,24 @@
       <workItem from="1743101288823" duration="5156000" />
       <workItem from="1743281612134" duration="6729000" />
       <workItem from="1743554634742" duration="2000" />
+      <workItem from="1743601803738" duration="1975000" />
     </task>
+    <task id="LOCAL-00001" summary="Adicionando o &quot;visualizar&quot; ou seja, o SELECT no readme.md">
+      <option name="closed" value="true" />
+      <created>1743625780688</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1743625780690</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Adicionando o &quot;visualizar&quot; ou seja, o SELECT no readme.md" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adicionando o &quot;visualizar&quot; ou seja, o SELECT no readme.md" />
   </component>
 </project>

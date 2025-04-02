@@ -44,7 +44,7 @@ graph TD;
 - [x] O usuário digita o ano de nascimento, e a aplicação retorna a idade com base na data da máquina.
 - [x] O usuário digita sua **data completa de nascimento**, e a aplicação retorna a idade baseada na data atual.
 - [x] O usuário digita sua data de nascimento e nome, e a aplicação armazena **nome, data de nascimento e idade** em um banco de dados SQLite.
-- [ ] O usuário pode **visualizar** os dados armazenados no banco.
+- [x] O usuário pode **visualizar** os dados armazenados no banco.
 - [ ] O usuário pode **atualizar** os dados armazenados.
 - [ ] O usuário pode **excluir** dados previamente inseridos.
 

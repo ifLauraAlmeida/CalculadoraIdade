@@ -9,12 +9,11 @@ package com.seuprojeto.classes;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
+import java.sql.PreparedStatement;
+
 
 
 
@@ -23,62 +22,84 @@ import javax.swing.table.DefaultTableModel;
  * @author Laura
  */
 public class modificarDados extends javax.swing.JFrame {
-    private final JTable table; // Tabela onde os dados serão exibidos
-    private final DefaultTableModel model; // Modelo de tabela
+   public modificarDados() {
+    initComponents();
+    setTitle("Modificar Dados");
+    setLocationRelativeTo(null);
+
+    // Chamar loadData depois que o construtor for concluído
+    SwingUtilities.invokeLater(() -> loadData());
+}
     
-        public modificarDados() {
-        initComponents();
-        setTitle("Consulta de Dados");
-        setLocationRelativeTo(null);
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-    new Object [][] {},
-    new String [] {
-        "ID", "Nome", "Idade", "Data de Nascimento"
-    }
-));
-
-
-        // Criação da tabela com colunas que você deseja exibir
-        model = new DefaultTableModel(new Object[]{"ID", "Nome", "Idade", "Data de Nascimento"}, 0);
-        table = new JTable(model);
-        JScrollPane scrollPane = new JScrollPane(table);
-        add(scrollPane); // Adiciona a tabela à janela
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-    }
-
-    // Método para carregar dados do banco de dados
     public void loadData() {
+        Connection conn = dataBaseConnection.connect();
+        if (conn != null) {
+            try {
+                String query = "SELECT * FROM pessoas";
+                try (PreparedStatement stmt = conn.prepareStatement(query);
+                     ResultSet rs = stmt.executeQuery()) {
+                    DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+                    model.setRowCount(0);
+                    while (rs.next()) {
+                        model.addRow(new Object[]{rs.getInt("id"), rs.getString("nome"), rs.getInt("idade"), rs.getString("data_nascimento")});
+                    }
+                }
+                conn.close();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(this, "Erro ao carregar dados: " + e.getMessage());
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Erro na conexão com o banco de dados.");
+        }
+    }
+    private void atualizarDados() {
+    String colunaValor = txtColuna.getText().trim();
+    String id = txtID.getText().trim();
+    
+    if (colunaValor.isEmpty() || id.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Preencha todos os campos!");
+        return;
+    }
+
+    if (!id.matches("\\d+")) {
+        JOptionPane.showMessageDialog(this, "ID inválido!");
+        return;
+    }
+
+    String[] partes = colunaValor.split("=");
+    if (partes.length != 2) {
+        JOptionPane.showMessageDialog(this, "Formato inválido! Use: coluna = 'valor'");
+        return;
+    }
+
+    String coluna = partes[0].trim();
+    String valor = partes[1].trim();
+
+    String query = "UPDATE pessoas SET " + coluna + " = ? WHERE id = ?";
+
     Connection conn = dataBaseConnection.connect();
     if (conn != null) {
-        System.out.println("✅ Conectado ao banco!");
-        try {
-            String query = "SELECT * FROM pessoas"; // Substitua pelo nome correto da sua tabela
-            try (Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(query)) {
-
-                // Obtém o modelo da tabela existente no design
-                DefaultTableModel modell = (DefaultTableModel) jTable1.getModel();
-                modell.setRowCount(0); // Limpa a tabela antes de adicionar os dados
-
-                // Adiciona os dados do banco na tabela
-                while (rs.next()) {
-                    int id = rs.getInt("id");
-                    String nome = rs.getString("nome");
-                    int idade = rs.getInt("idade");
-                    String dataNascimento = rs.getString("data_nascimento"); // Nome correto da coluna no banco
-                    modell.addRow(new Object[]{id, nome, idade, dataNascimento});
-                }
-
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, valor.replace("'", ""));
+            stmt.setInt(2, Integer.parseInt(id));
+            
+            int rowsAffected = stmt.executeUpdate();
+            if (rowsAffected > 0) {
+                JOptionPane.showMessageDialog(this, "Dados atualizados com sucesso!");
+                loadData();
+            } else {
+                JOptionPane.showMessageDialog(this, "Nenhuma alteração feita.");
             }
-            conn.close();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Erro ao carregar dados: " + e.getMessage());
+            JOptionPane.showMessageDialog(this, "Erro ao atualizar dados: " + e.getMessage());
+        } finally {
+            try { conn.close(); } catch (SQLException ignored) {}
         }
     } else {
         JOptionPane.showMessageDialog(this, "Erro na conexão com o banco de dados.");
     }
-    
 }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -109,7 +130,7 @@ public class modificarDados extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID", "Nome", "Idade", "Data de Nascimento"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -137,6 +158,11 @@ public class modificarDados extends javax.swing.JFrame {
         btnAtualizar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btnAtualizar.setForeground(new java.awt.Color(255, 255, 255));
         btnAtualizar.setText("Atualizar");
+        btnAtualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtualizarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -162,8 +188,8 @@ public class modificarDados extends javax.swing.JFrame {
                         .addGap(50, 50, 50)
                         .addComponent(btnAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -199,14 +225,12 @@ public class modificarDados extends javax.swing.JFrame {
 
     private void txtColunaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtColunaActionPerformed
         // TODO add your handling code here:
-           String colunaValor = txtColuna.getText();
-        String id = txtID.getText();
-        
-        if (colunaValor.isEmpty() || id.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Preencha todos os campos!");
-            return;
-        }
     }//GEN-LAST:event_txtColunaActionPerformed
+
+    private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
+        // TODO add your handling code here:
+        atualizarDados();
+    }//GEN-LAST:event_btnAtualizarActionPerformed
 
     /**
      * @param args the command line arguments

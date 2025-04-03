@@ -359,7 +359,9 @@ lblDia.setText(Integer.toString(dia));
 
     private void btnModificarDadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarDadosActionPerformed
         // TODO add your handling code here:
-        modificarDados 
+        modificarDados janelaModificar = new modificarDados(); //Criar nova janela
+        janelaModificar.setVisible(true); //Exibindo nova janela
+        janelaModificar.loadData(); // 🔥 Aqui carrega os dados na tabela!
     }//GEN-LAST:event_btnModificarDadosActionPerformed
 
     /**
